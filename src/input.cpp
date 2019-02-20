@@ -17,6 +17,9 @@
 #include "missile.h"
 #include "arrow.h"
 #include "bomb.h"
+#include "parachute.h"
+#include "cannon.hpp"
+// #include "cann"
 
 bool   cannon_keyboard_input = true;
 bool   drag_pan = false, old_cki;
@@ -31,6 +34,8 @@ extern std::vector<Missile> missiles;
 extern std::vector<Arrow> arrows;
 extern std::vector<Island> islands;
 extern std::vector<Bomb> bombs;
+extern std::vector<Parachute> parachute_kids;
+// extern std::vector<Bomb> bombs;
 
 extern float camera_rotation_angle;
 
@@ -131,8 +136,13 @@ void mouseButton(GLFWwindow *window, int button, int action, int mods) {
             // return;
         } else if (action == GLFW_RELEASE) {
             glm::vec3 target;
-            // target = plane.front_vector;
-            target = eye;
+            int auto_tar = glfwGetKey(window, GLFW_KEY_0);
+            if (auto_tar){
+                target = parachute_kids[parachute_kids.size() - 1].position;
+            } else{
+                target = plane.front_vector;
+            }
+            // target = eye;
             Missile temp_is = Missile(
                 plane.position.x-0,
                 plane.position.y+1*cos(glm::radians(plane.rotation.x)),

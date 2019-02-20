@@ -29,10 +29,9 @@ Bomb::Bomb(float x, float y, float z, color_t color) {
     //  = VIEW_BACK;
     start_time = getEpochTime();
 
-    GLfloat vertex_buffer_data[] = {}; //load the obj file of the Bombv1.obj
-
-    // std::cout << "UV SIZE " << BOMB_uvs.size() << " NUMVERTCES " << BOMB_vertices.size() << std::endl;
-    // std::cout << "RES BOOL " << "res" << std::endl;
+    bbox.length = 5.7;
+    bbox.width = 3;
+    bbox.height = 3;
 
     this->object = create3DObject(
         BOMB_vertices, BOMB_uvs,

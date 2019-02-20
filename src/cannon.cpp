@@ -1,6 +1,7 @@
 #include "cannon.hpp"
 #include "main.h"
 #include "plane.h"
+// #include
 // #include "objloader.hpp"
 #include "common/objloader.hpp"
 #include <vector>
@@ -22,6 +23,12 @@ Cannon::Cannon(float x, float y, float z, color_t color) {
     lengthrim     =  5.3;
     length        = 7.745;
     cannon_radius = 2.38;// (back side), 1.36 (smaller one i.e front side)
+
+    bboxc.width = length;
+    bboxc.height = cannon_radius * 2;
+    bboxc.length = cannon_radius * 2;
+
+    dead = false;
 
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;
@@ -115,6 +122,15 @@ void Cannon::tick(float offset) {
     }
 }
 
+bool Cannon::collides(bounding_box_t mbox){
+    if (
+        detect_collision(bboxc, mbox)
+    ) {
+        return true;
+    }
+    return false;
+}
+
 
 CannonBall::CannonBall(float x, float y, float z, color_t color) {
     this->position = glm::vec3(x, y, z);
@@ -161,6 +177,10 @@ void CannonBall::move(){
 void CannonBall::tick(float offset) {
 
     position += (initplane - position) * glm::vec3(0.2, 0.2, 0.2);
+
+    bboxc.x = position.x;
+    bboxc.y = position.y;
+    bboxc.z = position.z;
     // pointer.point_toward(position);
 
     // Cannon.pointer.point_toward(Cannon.position);

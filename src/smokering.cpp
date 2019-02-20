@@ -10,11 +10,10 @@ extern Plane plane;
 
 SmokeRing::SmokeRing(float x, float y, float z, color_t color) {
     this->position = glm::vec3(x, y, z);
-    this->rotation.x = 0;
+    this->rotation.x = 90;
     this->rotation.y = 0;
     this->rotation.z = 0;
     radius = 13.0 / 2.0;
-
 
     GLfloat vertex_buffer_data[] = {}; //load the obj file of the SmokeRingv1.obj
     // GLfloat colorbuff[] = {};
@@ -46,11 +45,13 @@ void SmokeRing::scale(double scl_){
 
 
 bool SmokeRing::plane_did_it(){
-    
-    if (position.x - plane.position.x){
+    if (
+        abs(position.x - plane.position.x) < radius &&
+        abs(position.x - plane.position.x) < radius)
+    {
         return false;
     }
-    return true;
+    return false;
 }
 
 bool SmokeRing::candelete(){
@@ -76,6 +77,9 @@ void SmokeRing::set_position(float x, float y, float z) {
 }
 
 void SmokeRing::tick(float offset) {
+    // if (plane_did_it()){
+    //     plane.score += 10;
+    // }
     // this->rotation.x += (1 * offset);
     // this->position.x -= speed;
     // this->position.y -= speed;

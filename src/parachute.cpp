@@ -91,6 +91,16 @@ bool Parachute::candelete(){
     }
 }
 
+bool Parachute::collides(bounding_box_t mbox){
+    if (
+        detect_collision(bbox_bottom, mbox) ||
+        detect_collision(bbox_top, mbox)
+    ) {
+        return true;
+    }
+    return false;
+}
+
 bool Parachute::iscolliding(){
 
     //logic
@@ -100,7 +110,7 @@ bool Parachute::iscolliding(){
         detect_collision(bbox_top,    plane.bbox_main) ||
         detect_collision(bbox_top,    plane.bbox_wings)
     ){
-        std::cout << "Detected some shit bro" << std::endl;
+        std::cout << "Detected collision" << std::endl;
         return true;
     }
 
@@ -130,7 +140,8 @@ void Parachute::tick(float offset) {
 
     dead = iscolliding();
     if (dead){
-        plane.score ++;
+        std::cout << "DEAD BITCH" << std::endl;
+        plane.score += 10;
         plane.HP -= 2;
         plane.murder_count ++;
     }

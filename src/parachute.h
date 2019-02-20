@@ -30,6 +30,7 @@ public:
     void tick(float offset);
     bool candelete();
     bool iscolliding();
+    bool collides(bounding_box_t mbox);
 private:
     VAO *object;
 };

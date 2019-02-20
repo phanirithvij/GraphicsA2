@@ -14,7 +14,8 @@ Island::Island(float x, float y, float z, color_t color) {
     this->rotation.y = 0;
     this->rotation.z = 0;
 
-    pointer = Arrow(x, y + 20, z, COLOR_BLUE);
+    pointer = Arrow(x, y + 100, z, COLOR_BLUE);
+    pointer.scale(6);
 
     pointer.point_toward(position);
 
@@ -80,13 +81,15 @@ void Island::create_inhabitants(){
 
     std::vector<glm::vec3> cannonpositions;
 
-    cannonpositions.push_back(glm::vec3(1, TERRAIN_HEIGHT, 4));
-    cannonpositions.push_back(glm::vec3(2, TERRAIN_HEIGHT, 7));
-    cannonpositions.push_back(glm::vec3(3, TERRAIN_HEIGHT, 8));
-    cannonpositions.push_back(glm::vec3(4, TERRAIN_HEIGHT, 9));
+    cannonpositions.push_back(glm::vec3(3.6, 4, 8.56)); // +- 3.6
+    cannonpositions.push_back(glm::vec3(6.14, 3.06, 4.83));
+    cannonpositions.push_back(glm::vec3(5.13, 3.35, 2.7)); //1.35 y
+    cannonpositions.push_back(glm::vec3(0, 6.04, 3.64));
 
     for (int i=0; i < cannonpositions.size(); i++){
-        Cannon cannon = Cannon(cannonpositions[i].x, cannonpositions[i].y, cannonpositions[i].z, COLOR_BLACK);
+        Cannon cannon = Cannon(cannonpositions[i].x * SCALE_ISLAND, cannonpositions[i].y * SCALE_ISLAND,
+         cannonpositions[i].z * SCALE_ISLAND
+        , COLOR_BLACK);
         cannons.push_back(cannon);
     }
 
@@ -106,6 +109,9 @@ void Island::draw(glm::mat4 VP) {
     draw3DObject(this->object);
     pointer.draw(VP);
     for (int i=0; i<cannons.size(); i++){
+        if(cannons[i].dead){
+            cannons.erase(cannons.begin() + i);
+        } else
         cannons[i].draw(VP);
     }
 }

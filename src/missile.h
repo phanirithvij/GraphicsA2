@@ -14,6 +14,7 @@ public:
     glm::vec3 rotation;
     glm::vec3 speed;
     glm::vec3 target;
+    glm::vec3 dire;
     bool dead;
     bounding_box_t bbox;
     void draw(glm::mat4 VP);

@@ -392,7 +392,7 @@ void tick_elements() {
         bool dechealth = volcanos[i].plane_on_my_top(); //ontop => decrement health or collided => kill plane
         if (dechealth){
             plane.HP -= 0.1;
-            std::cout << "HP " << plane.HP << ", Num volcan " << volcanos.size() << std::endl;
+            // std::cout << "HP " << plane.HP << ", Num volcan " << volcanos.size() << std::endl;
         }
     }
 
@@ -402,6 +402,37 @@ void tick_elements() {
     debug_bomb_eye.set_position(supply_plane.front_vector);
     debug_bomb_up.set_position(supply_plane.up_vector);
     // debug_bomb_target.set_position(plane.pointer.points_toward);
+
+    //missile with parachuteman
+
+    for (int i=0; i< missiles.size(); i++){
+        for (int j=0; j < parachute_kids.size(); j++){
+            if (parachute_kids[j].collides(missiles[i].bbox)){
+                parachute_kids[j].dead = true;
+            }
+        }
+    }
+
+
+    for (int i=0; i< missiles.size(); i++){
+        for (int j=0; j < islands.size(); j++){
+            for(int k=0; k< islands[j].cannons.size(); k++){
+                if (islands[j].cannons[k].collides(missiles[i].bbox)){
+                    islands[j].cannons[k].dead = true;
+                }
+            }
+        }
+    }
+
+
+    for (int i=0; i< missiles.size(); i++){
+        for (int j=0; j < parachute_kids.size(); j++){
+            if (parachute_kids[j].collides(missiles[i].bbox)){
+                parachute_kids[j].dead = true;
+            }
+        }
+    }
+
 }
 
 void initGL(GLFWwindow *window, int width, int height) {
@@ -440,8 +471,22 @@ void initGL(GLFWwindow *window, int width, int height) {
     temp_vol = Volcano(-230, 0, -230, COLOR_RED);
     volcanos.push_back(temp_vol);
 
-    SmokeRing smring = SmokeRing(10, 10, 10, COLOR_BACKGROUND);
+    SmokeRing smring = SmokeRing(10, 60, 10, COLOR_BACKGROUND);
     smokes.push_back(smring);
+
+    smring = SmokeRing(-210, 250, 100, COLOR_BACKGROUND);
+    smokes.push_back(smring);
+    smring = SmokeRing(-210, 210, -110, COLOR_BACKGROUND);
+    smokes.push_back(smring);
+    smring = SmokeRing(-10, 260, -110, COLOR_BACKGROUND);
+    smokes.push_back(smring);
+    smring = SmokeRing(120, 220, 210, COLOR_BACKGROUND);
+    smokes.push_back(smring);
+    smring = SmokeRing(11, 260, 110, COLOR_BACKGROUND);
+    smokes.push_back(smring);
+    smring = SmokeRing(120, 220, 110, COLOR_BACKGROUND);
+    smokes.push_back(smring);
+
 
     Parachute para = Parachute(0, 0, 0, COLOR_BLUE);
     parachute_kids.push_back(para);
@@ -523,6 +568,10 @@ int main(int argc, char **argv) {
 
             tick_input(window);
             tick_elements();
+            char text[100];
+            sprintf(text, "Fuel = %d , HP = %0.1f, SCORE = %d, SPEED = %0.2f, ALTITUDE = %.2f", plane.fuel, plane.HP,
+            plane.score, plane.speed.x, plane.position.y);
+            glfwSetWindowTitle(window, text);
         }
 
         // Poll for Keyboard and mouse events

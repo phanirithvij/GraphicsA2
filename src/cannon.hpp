@@ -19,6 +19,7 @@ public:
     void move();
     void set_position(float x, float y, float z);
     void tick(float offset);
+    bounding_box_t bboxc;
     void draw(glm::mat4 VP);
 private:
     VAO *object;
@@ -35,10 +36,13 @@ public:
     glm::vec3 moving;
     glm::vec3 speed;
     double speed_c;
+    bool dead;
     float wheelradius; // 2.48
     float lengthrim; // 5.3
     float length; //7.745
     float cannon_radius; //2.38 (back side), 1.36 (smaller one i.e front side)
+    bounding_box_t bboxc;
+    bool collides(bounding_box_t mbox);
     void set_position(float x, float y, float z);
     void point_toward(glm::vec3 direc);
     void draw_wheels(glm::mat4 VP);

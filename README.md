@@ -24,6 +24,8 @@ make
 
 `A`, `D` for tilting the aeroplane.
 
+Use `0` to auto target.
+
 `W` to accelerate the aeroplane.
 
 `H` to pause the plane.

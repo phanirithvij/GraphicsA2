@@ -70,7 +70,7 @@ bool HealthKit::iscollidingplane(){
         detect_collision(bbox_top,    plane.bbox_main) ||
         detect_collision(bbox_top,    plane.bbox_wings)
     ){
-        std::cout << "Detected some shit bro" << std::endl;
+        std::cout << "Detected collision" << std::endl;
         return true;
     }
 

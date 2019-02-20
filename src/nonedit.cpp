@@ -164,7 +164,7 @@ struct VAO *create3DObject(
     const std::string texture_path,
     const GLenum fill_mode)
 {
-    std::cout << "HAS Texture ID" << std::endl;
+    // std::cout << "HAS Texture ID" << std::endl;
 
     struct VAO *vao = new struct VAO;
     vao->PrimitiveMode = GL_TRIANGLES;
@@ -216,7 +216,7 @@ struct VAO *create3DObject(
     if (texture_path.find("DDS") != std::string::npos)
     {
         vao->TextureID = glGetUniformLocation(programID, "myTextureSampler");
-        cout << "LOADERRERERERE" << texture_path << endl;
+        // cout << "LOADERRERERERE" << texture_path << endl;
         vao->Texture_ = loadDDS(texture_path.c_str());
     }
     else if (texture_path.find("png") != std::string::npos)
@@ -230,7 +230,7 @@ struct VAO *create3DObject(
     else if (texture_path.find("bmp") != std::string::npos)
     {
         // vao->Texture_ = loadBMP_custom(texture_path.c_str());
-        cout << "BPMBMPBMPBMP" << texture_path << endl;
+        // cout << "BPMBMPBMPBMP" << texture_path << endl;
         vao->texture = Texture(texture_path);
         vao->texture.TextureID = vao->TextureID;
     }
@@ -245,7 +245,7 @@ struct VAO *create3DObject(std::vector<glm::vec3> vertices,
                            const std::vector<glm::vec2> uv_buffer_data,
                            GLenum fill_mode)
 {
-    std::cout << "No texture ID" << std::endl;
+    // std::cout << "No texture ID" << std::endl;
     struct VAO *vao = new struct VAO;
     vao->PrimitiveMode = GL_TRIANGLES;
     vao->NumVertices = vertices.size();

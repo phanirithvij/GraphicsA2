@@ -21,7 +21,7 @@ public:
     void set_position(glm::vec3 target);
     void tick(float offset);
     bool candelete();
-
+    bounding_box_t bbox;
 private:
     VAO *object;
 };

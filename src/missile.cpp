@@ -14,10 +14,12 @@ Missile::Missile(float x, float y, float z, glm::vec3 target_, color_t color) {
     this->rotation.y = 0;
     this->rotation.z = 0;
     //  = VIEW_BACK;
-    speed_c = 0.003;
+    speed_c = 0.03;
     dead = false;
 
     this->target = target_;
+
+    dire = target - position;
 
     // GLfloat vertex_buffer_data[] = {};
 
@@ -79,9 +81,11 @@ void Missile::set_position(float x, float y, float z) {
 
 
 void Missile::tick(float offset) {
-    position.x -= (speed_c) * target.x;
-    position.z -= (speed_c) * target.z;
-    position.y += (speed_c) * target.y;
+    position += glm::vec3(speed_c, speed_c, speed_c) * (dire);
+    // position.z += (speed_c) * (target.z - position.z);
+    // position.y += (speed_c) * (target.y - position.y);
+
+    // target *= glm::vec3(2, 2, 2);
 
     bbox.x = position.x;
     bbox.y = position.y;
