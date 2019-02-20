@@ -3,12 +3,21 @@
 ## To run
 
 ```shell
+
 mkdir build/
+
 cp -r src/assets/ build/
 cd build/
+
+mv assets/blend/* assets/
+mv assets/obj/* assets/
+mv assets/dds/* assets/
+
 cmake ..
 make
+
 ./graphics_asgn2
+
 ```
 
 ## Controls
