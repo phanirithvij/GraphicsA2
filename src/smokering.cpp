@@ -46,7 +46,8 @@ void SmokeRing::scale(double scl_){
 
 
 bool SmokeRing::plane_did_it(){
-    if (position.x ){
+    
+    if (position.x - plane.position.x){
         return false;
     }
     return true;
