@@ -38,6 +38,7 @@ std::vector<Parachute> parachute_kids;
 std::vector<SmokeRing> smokes;
 std::vector<FuelUP> fuelups;
 std::vector<HealthKit> healthkits;
+// std::vector<HealthKit> c;
 
 Bomb debug_bomb_target, debug_bomb_eye, debug_bomb_up;
 FakeHuman fakhu;
@@ -409,6 +410,7 @@ void tick_elements() {
         for (int j=0; j < parachute_kids.size(); j++){
             if (parachute_kids[j].collides(missiles[i].bbox)){
                 parachute_kids[j].dead = true;
+                plane.score += 10;
             }
         }
     }
@@ -570,7 +572,7 @@ int main(int argc, char **argv) {
             tick_elements();
             char text[100];
             sprintf(text, "Fuel = %d , HP = %0.1f, SCORE = %d, SPEED = %0.2f, ALTITUDE = %.2f", plane.fuel, plane.HP,
-            plane.score, plane.speed.x, plane.position.y);
+            plane.score, plane.speed_c, plane.position.y);
             glfwSetWindowTitle(window, text);
         }
 

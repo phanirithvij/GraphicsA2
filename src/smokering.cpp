@@ -47,9 +47,10 @@ void SmokeRing::scale(double scl_){
 bool SmokeRing::plane_did_it(){
     if (
         abs(position.x - plane.position.x) < radius &&
-        abs(position.x - plane.position.x) < radius)
+        abs(position.y - plane.position.y) < radius && 
+        (position.z - plane.position.z - 3) * (position.z - plane.position.z + 3) < 0)
     {
-        return false;
+        return true;
     }
     return false;
 }
@@ -77,9 +78,12 @@ void SmokeRing::set_position(float x, float y, float z) {
 }
 
 void SmokeRing::tick(float offset) {
-    // if (plane_did_it()){
-    //     plane.score += 10;
-    // }
+    if (plane_did_it()){
+        plane.score += 10;
+        position.x += 10;
+        position.z += 10;
+        position.y -= 10;
+    }
     // this->rotation.x += (1 * offset);
     // this->position.x -= speed;
     // this->position.y -= speed;

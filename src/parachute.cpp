@@ -140,7 +140,7 @@ void Parachute::tick(float offset) {
 
     dead = iscolliding();
     if (dead){
-        std::cout << "DEAD BITCH" << std::endl;
+        std::cout << "DEAD" << std::endl;
         plane.score += 10;
         plane.HP -= 2;
         plane.murder_count ++;
