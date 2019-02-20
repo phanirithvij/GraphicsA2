@@ -427,10 +427,12 @@ void tick_elements() {
     }
 
 
-    for (int i=0; i< missiles.size(); i++){
-        for (int j=0; j < parachute_kids.size(); j++){
-            if (parachute_kids[j].collides(missiles[i].bbox)){
-                parachute_kids[j].dead = true;
+    for (int i=0; i< bombs.size(); i++){
+        for (int j=0; j < islands.size(); j++){
+            for(int k=0; k< islands[j].cannons.size(); k++){
+                if (islands[j].cannons[k].collides(bombs[i].bbox)){
+                    islands[j].cannons[k].dead = true;
+                }
             }
         }
     }
